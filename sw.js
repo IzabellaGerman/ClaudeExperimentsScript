@@ -1,7 +1,8 @@
-const CACHE_NAME = 'tictactoe-v1';
+const CACHE_NAME = 'tictactoe-v2';
 const ASSETS = [
   '/',
   '/index.html',
+  '/game.js',
   '/manifest.json',
   '/icons/icon-192.png',
   '/icons/icon-512.png'

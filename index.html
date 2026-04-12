@@ -75,13 +75,8 @@
 <div class="board" id="board"></div>
 <button onclick="resetGame()">New Game</button>
 
+<script src="game.js"></script>
 <script>
-const WINS = [
-  [0,1,2],[3,4,5],[6,7,8],
-  [0,3,6],[1,4,7],[2,5,8],
-  [0,4,8],[2,4,6]
-];
-
 let board, turn, gameOver, mode, scores;
 const statusEl = document.querySelector('.status');
 const boardEl = document.getElementById('board');
@@ -135,7 +130,7 @@ function handleClick(i) {
 
 function makeMove(i) {
   board[i] = turn;
-  const win = checkWin(turn);
+  const win = checkWin(board, turn);
   if (win) {
     gameOver = true;
     scores[turn]++;
@@ -160,63 +155,10 @@ function makeMove(i) {
   render();
 }
 
-function checkWin(player) {
-  for (const combo of WINS) {
-    if (combo.every(i => board[i] === player)) return combo;
-  }
-  return null;
-}
-
 function aiMove() {
   if (gameOver) return;
-  const i = mode === 'hard' ? bestMove() : easyMove();
+  const i = mode === 'hard' ? bestMove(board) : easyMove(board);
   makeMove(i);
-}
-
-function easyMove() {
-  const empty = board.map((v, i) => v ? -1 : i).filter(i => i >= 0);
-  return empty[Math.floor(Math.random() * empty.length)];
-}
-
-function bestMove() {
-  let best = -Infinity, move = -1;
-  for (let i = 0; i < 9; i++) {
-    if (board[i]) continue;
-    board[i] = 'O';
-    const score = minimax(false, -Infinity, Infinity);
-    board[i] = '';
-    if (score > best) { best = score; move = i; }
-  }
-  return move;
-}
-
-function minimax(isMax, alpha, beta) {
-  if (checkWin('O')) return 10;
-  if (checkWin('X')) return -10;
-  if (board.every(c => c)) return 0;
-  if (isMax) {
-    let best = -Infinity;
-    for (let i = 0; i < 9; i++) {
-      if (board[i]) continue;
-      board[i] = 'O';
-      best = Math.max(best, minimax(false, alpha, beta));
-      board[i] = '';
-      alpha = Math.max(alpha, best);
-      if (beta <= alpha) break;
-    }
-    return best;
-  } else {
-    let best = Infinity;
-    for (let i = 0; i < 9; i++) {
-      if (board[i]) continue;
-      board[i] = 'X';
-      best = Math.min(best, minimax(true, alpha, beta));
-      board[i] = '';
-      beta = Math.min(beta, best);
-      if (beta <= alpha) break;
-    }
-    return best;
-  }
 }
 
 function updateScores() {

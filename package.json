@@ -1,0 +1,24 @@
+{
+  "name": "tictactoegame",
+  "version": "1.0.0",
+  "description": "A Progressive Web App (PWA) Tic Tac Toe game. Play against a friend or challenge the AI — installable as a desktop/mobile app with offline support.",
+  "main": "game.js",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IzabellaGerman/ClaudeExperimentsScript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/IzabellaGerman/ClaudeExperimentsScript/issues"
+  },
+  "homepage": "https://github.com/IzabellaGerman/ClaudeExperimentsScript#readme",
+  "devDependencies": {
+    "vitest": "^4.1.4"
+  }
+}
